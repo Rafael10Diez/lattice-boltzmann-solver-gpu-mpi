@@ -1,0 +1,21 @@
+app_name=c_version_lbm_solver
+mypwd=$PWD
+ref_folder=$mypwd
+subfolder_runs=local_runs
+
+python3 python_lbm_validation_breuer_init.py
+
+for subfolder in  $mypwd/$subfolder_runs/run_*; do
+
+cd $subfolder
+rm -f report_errors.txt
+scp $ref_folder/../${app_name}.c ${app_name}.c
+
+echo "Subfolder: ${subfolder}"
+mpicc  -O3  -o ${app_name}_cpu  $app_name.c -lm -lmpi
+mpirun -n 8 ./${app_name}_cpu 8 1 1
+
+done
+
+cd $mypwd
+
