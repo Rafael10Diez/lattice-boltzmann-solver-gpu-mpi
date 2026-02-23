@@ -447,19 +447,6 @@ if __name__ == '__main__':
     memo_id[0] = 50
     part_1_script('Poiseuille_Flow+PU')
 
-    memo_id[0] = 60
-    info_high_visc_gradp = part_2_iterator_add_noise(part_2_script_setup(0., 1, 200, False, 0.1, w_box=0.3)) # Ux, Fx, ny, advancing, nu 
-
-    memo_id[0] = 70
-    info_low_visc_gradp  = part_2_iterator_add_noise(part_2_script_setup(0., 1, 400, False, 0.0017, K_delta_t = 0.1,from_zero=True, w_box=0.1, h_box=0.1, nstep_K_mult=1)) # Ux, Fx, ny, advancing, nu
-    
-    memo_id[0] = 80
-    info_moving          = part_2_iterator_add_noise(part_2_script_setup(-1, 0., 400, False, 0.1, w_box=0.3, report_avoid_fluent_corners=10)) # Ux, Fx, ny, advancing, nu 
-    # # info_adv           = part_2_iterator_add_noise(part_2_script_setup(-1, 0., 200, True , 0.1, report_avoid_fluent_corners=5, K_delta_t = 0.6*10,ideal_tau=1, save_freq=10))
-    
-    memo_id[0] = 90
-    info_adv             = part_2_iterator_add_noise(part_2_script_setup(-1, 0., 200, True , 0.1, w_box=0.3, report_avoid_fluent_corners=5, K_delta_t = 0.6*10*8/10, ideal_tau = 1, save_freq=100))
-
     # final post-processing:
     def detailed_pics(info, pic_fname,tag,custom_title=None):
         import numpy as np
@@ -527,15 +514,27 @@ if __name__ == '__main__':
                           pad_inches   =  0.02                               )
             plt.close(fig)
 
+    memo_id[0] = 60
+    info_high_visc_gradp = part_2_iterator_add_noise(part_2_script_setup(0., 1, 200, False, 0.1, w_box=0.3)) # Ux, Fx, ny, advancing, nu 
+    
     detailed_pics(info_high_visc_gradp, 'high_visc_gradp','before')
     detailed_pics(info_high_visc_gradp, 'high_visc_gradp','after')
 
-
+    memo_id[0] = 70
+    info_low_visc_gradp  = part_2_iterator_add_noise(part_2_script_setup(0., 1, 400, False, 0.0017, K_delta_t = 0.1,from_zero=True, w_box=0.1, h_box=0.1, nstep_K_mult=1)) # Ux, Fx, ny, advancing, nu
+    
     detailed_pics(info_low_visc_gradp, 'low_visc_gradp','before')
     detailed_pics(info_low_visc_gradp, 'low_visc_gradp','after')
 
+    memo_id[0] = 80
+    info_moving          = part_2_iterator_add_noise(part_2_script_setup(-1, 0., 400, False, 0.1, w_box=0.3, report_avoid_fluent_corners=10)) # Ux, Fx, ny, advancing, nu 
+    # # info_adv           = part_2_iterator_add_noise(part_2_script_setup(-1, 0., 200, True , 0.1, report_avoid_fluent_corners=5, K_delta_t = 0.6*10,ideal_tau=1, save_freq=10))
+    
     detailed_pics(info_moving, 'moving','before')
     detailed_pics(info_moving, 'moving','after')
 
+    memo_id[0] = 90
+    info_adv             = part_2_iterator_add_noise(part_2_script_setup(-1, 0., 200, True , 0.1, w_box=0.3, report_avoid_fluent_corners=5, K_delta_t = 0.6*10*8/10, ideal_tau = 1, save_freq=100))
+    
     detailed_pics(info_adv, 'advancing','before',custom_title='(2 loops)')
     detailed_pics(info_adv, 'advancing','after', custom_title='(4 loops)')
