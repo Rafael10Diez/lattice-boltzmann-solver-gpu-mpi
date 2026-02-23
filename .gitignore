@@ -1,3 +1,5 @@
 *.pyc
 **/*.pyc
 **/__pycache__
+tests_general/test_runs
+tests_general/pics_ready
