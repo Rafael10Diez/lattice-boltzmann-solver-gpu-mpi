@@ -15,11 +15,6 @@ The C version uses OpenMP for cross-platform GPU offloading, and it has MPI supp
  - GPU-acceleration through OpenMP offloading, and direct MPI transfers between GPUs.
  - Smart reduction of MPI workload during halo exchanges, by avoiding data transfer of unnecessary lattice components (at boundaries).
 
-## HPC features
- - Optimized C code with MPI support.
- - GPU-acceleration through OpenMP offloading, and direct MPI transfers between GPUs.
- - Smart reduction of MPI workload during halo exchanges, by avoiding data transfer of unnecessary lattice components (at boundaries).
-
 ## Formal validation
   - Successful replication of results from Breuer et al. (2000) regarding the changes in the drag coefficients (as a function of the Reynolds number) for the flow past a square cylinder within a channel:
       - M. Breuer, J. Bernsdorf, T. Zeiser, F. Durst (2000). Accurate computations of the laminar flow past a square cylinder based on two different methods: lattice-Boltzmann and finite-volume. International Journal of Heat and Fluid Flow, vol. 21, pp. 186-196.
