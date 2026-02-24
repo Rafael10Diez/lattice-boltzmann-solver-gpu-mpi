@@ -49,9 +49,6 @@ cd $mypwd
 for subfolder in  $mypwd/run_*; do
 
 cd $subfolder
-rm -f ${app_name}.c
-rm -f ../${app_name}.c
-rm -f report_errors.txt
 cp -f $lumi_folder/${app_name}.c ${app_name}.c
 
 cc  -O3 -fopenmp -lmpi -o ${app_name}_gpu  $app_name.c
