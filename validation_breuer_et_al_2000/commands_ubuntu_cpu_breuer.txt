@@ -1,7 +1,11 @@
+# Run C-code in Ubuntu PC, using multicore MPI (CPU, without OpenMP)
+
 app_name=c_version_lbm_solver
 mypwd=$PWD
 ref_folder=$mypwd
 subfolder_runs=local_runs
+
+my_nproc=8 # set number of local cores
 
 python3 python_lbm_validation_breuer_init.py
 
@@ -13,9 +17,8 @@ scp $ref_folder/../${app_name}.c ${app_name}.c
 
 echo "Subfolder: ${subfolder}"
 mpicc  -O3  -o ${app_name}_cpu  $app_name.c -lm -lmpi
-mpirun -n 8 ./${app_name}_cpu 8 1 1
+mpirun -n $my_nproc ./${app_name}_cpu $my_nproc 1 1
 
 done
 
 cd $mypwd
-

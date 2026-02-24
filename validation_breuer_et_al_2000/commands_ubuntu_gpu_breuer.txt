@@ -1,0 +1,30 @@
+# Run C-code in Ubuntu PC, using local NVIDIA GPU (one device)
+
+app_name=c_version_lbm_solver
+mypwd=$PWD
+ref_folder=$mypwd
+subfolder_runs=local_runs
+
+python3 python_lbm_validation_breuer_init.py
+
+my_mpi=openmpi4 # mpi
+my_nv_version=25.1
+export PATH=/opt/nvidia/hpc_sdk/Linux_x86_64/$my_nv_version/cuda/bin:$PATH
+export PATH=/opt/nvidia/hpc_sdk/Linux_x86_64/$my_nv_version/compilers/bin:$PATH
+export PATH=/opt/nvidia/hpc_sdk/Linux_x86_64/$my_nv_version/comm_libs/$my_mpi/bin:$PATH
+export LD_LIBRARY_PATH=/opt/nvidia/hpc_sdk/Linux_x86_64/$my_nv_version/comm_libs/$my_mpi/lib:$LD_LIBRARY_PATH
+
+
+for subfolder in  $mypwd/$subfolder_runs/run_*; do
+
+cd $subfolder
+rm -f report_errors.txt
+scp $ref_folder/../${app_name}.c ${app_name}.c
+
+echo "Subfolder: ${subfolder}"
+mpicc  -O3  -o ${app_name}_gpu  $app_name.c -lm -lmpi -mp=gpu
+mpirun -n 1 ./${app_name}_gpu 1 1 1
+
+done
+
+cd $mypwd
