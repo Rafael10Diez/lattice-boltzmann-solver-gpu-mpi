@@ -38,7 +38,7 @@ The C version uses OpenMP for cross-platform GPU offloading, and it has MPI supp
  - C-version:
     - All the advanced test cases found in the `tests_general` folder (Python-based) can also be run with the C-version (each test case is 100% compatible). The C-code has to be compiled and run in the respective subfolder.
  - Python-version:
-    - To run the validation cases from Breuer et al. (2000) in Python, please disable set the flag `only_export_inputs=False` in the file `python_lbm_validation_breuer_init.py`.
+    - To run the validation cases from Breuer et al. (2000) in Python, please set the flag `only_export_inputs=False` in the file `python_lbm_validation_breuer_init.py`.
         - No further changes are needed. The post-processing code 
 
 ## Flow gallery
